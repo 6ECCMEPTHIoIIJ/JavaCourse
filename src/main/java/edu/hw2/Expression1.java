@@ -1,60 +1,53 @@
 package edu.hw2;
 
+/**
+ * Class that evaluates the first expression.
+ */
 public final class Expression1 extends ExpressionSystem {
 
-    public Expression1(double a, double b) {
+    /**
+     * The edge that separates two partition expression conditions.
+     */
+    private static final double EXPRESSION_EDGE = 3.0;
+
+    /**
+     * Constructor for the first expression.
+     *
+     * @param a the value of the parameter a
+     * @param b the value of the parameter b
+     */
+    public Expression1(final double a, final double b) {
         super(
-            new PartitionExpression() {
-                public double evaluate(double[] values) {
-                    if (values.length != 1) {
-                        throw new IllegalArgumentException("Invalid number of arguments. Expected 1, but got %d".formatted(
-                            values.length));
+            new SingleArgumentPartitionExpression() {
+                public double evaluate(final double value) {
+                    if (value == 0) {
+                        throw new IllegalArgumentException(
+                            "Value under the logarithm equal to 0.0"
+                        );
                     }
 
-                    final double x = values[0];
-                    if (x == 0) {
-                        throw new IllegalArgumentException("Value under the logarithm equal to 0.0");
-                    }
-
-                    return b + 2 * Math.log(Math.abs(x));
+                    return b + 2 * Math.log(Math.abs(value));
                 }
 
-                public boolean checkCondition(double[] values) {
-                    if (values.length != 1) {
-                        throw new IllegalArgumentException("Invalid number of arguments. Expected 1, but got %d".formatted(
-                            values.length));
-                    }
-
-                    final double x = values[0];
-                    return x <= 3;
+                public boolean checkCondition(final double value) {
+                    return value <= EXPRESSION_EDGE;
                 }
             },
-            new PartitionExpression() {
-                public double evaluate(double[] values) {
-                    if (values.length != 1) {
-                        throw new IllegalArgumentException("Invalid number of arguments. Expected 1, but got %d".formatted(
-                            values.length));
-                    }
-
-                    final double x = values[0];
-                    final double xSqr = x * x;
+            new SingleArgumentPartitionExpression() {
+                public double evaluate(final double value) {
+                    final double xSqr = value * value;
                     if (xSqr + a == 0) {
-                        throw new IllegalArgumentException("Denominator value equal to 0.0");
+                        throw new DivisionByZeroException();
                     }
 
                     return xSqr / (xSqr + a);
                 }
 
-                public boolean checkCondition(double[] values) {
-                    if (values.length != 1) {
-                        throw new IllegalArgumentException("Invalid number of arguments. Expected 1, but got %d".formatted(
-                            values.length));
-                    }
-
-                    final double x = values[0];
-                    return x > 3;
+                public boolean checkCondition(final double value) {
+                    return value > EXPRESSION_EDGE;
                 }
             }
         );
     }
 }
+

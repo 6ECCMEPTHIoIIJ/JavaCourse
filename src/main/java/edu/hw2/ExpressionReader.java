@@ -1,10 +1,27 @@
 package edu.hw2;
 
-public interface ExpressionReader {
+import java.util.Scanner;
+
+public abstract class ExpressionReader {
+
     /**
-     * Read the expression parameters the input source.
+     * The reader of expression parameters.
+     */
+    private final ParameterReader parameterReader = new ParameterReader();
+
+    /**
+     * Get the parameter reader.
+     *
+     * @return the parameter reader
+     */
+    protected ParameterReader getParameterReader() {
+        return parameterReader;
+    }
+
+    /**
+     * Read the expression parameters from the console.
      *
      * @return the expression
      */
-    Expression readExpression();
+    public abstract Expression readExpression();
 }

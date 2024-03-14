@@ -1,18 +1,18 @@
 package edu.hw2;
 
-import java.util.stream.Stream;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.TestOnly;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-final class Expression1Test extends ExpressionTest {
+import java.util.stream.Stream;
+
+final class Expression7Test extends ExpressionTest {
     private final static double EXPRESSION_EDGE = 3.0;
 
-    public Expression1Test() {
-        super(1);
+    public Expression7Test() {
+        super(7);
     }
 
     @ParameterizedTest
@@ -29,27 +29,6 @@ final class Expression1Test extends ExpressionTest {
         assertEquals(args);
     }
 
-    @ParameterizedTest
-    @DisplayName("Проверка выражения при значениях x, "
-        + "при которых проиходит деление на 0")
-    @MethodSource("illegalExpressionArgsProviderFactory")
-    public void divisionByZeroCheck(@NotNull final ExpressionTestArgs args) {
-        assertNotNull(assertThrows(
-            DivisionByZeroException.class,
-            () -> factory.createExpression(args.a(), args.b()).evaluate(args.x())
-        ));
-    }
-
-    @Test
-    @DisplayName("Проверка выражения при значениях x, "
-        + "при которых под логарифмом стоит 0")
-    public void zeroUnderLogarithmCheck() {
-        assertNotNull(assertThrows(
-            IllegalArgumentException.class,
-            () -> factory.createExpression(3.0, 6.0).evaluate(0.0)
-        ));
-    }
-
     @Override
     @TestOnly
     protected double evaluateExpression(
@@ -57,10 +36,9 @@ final class Expression1Test extends ExpressionTest {
         final double b,
         final double x
     ) {
-        final double xSqr = x * x;
-        return x <= EXPRESSION_EDGE
-            ? b + 2.0 * Math.log(Math.abs(x))
-            : xSqr / (xSqr + a);
+        return x > EXPRESSION_EDGE
+            ? (a + x) * Math.atan(a * x)
+            : Math.pow(Math.cos(b + Math.pow(x, 3.0)), 2.0);
     }
 
     private static @NotNull Stream<ExpressionTestArgs>
@@ -82,13 +60,4 @@ final class Expression1Test extends ExpressionTest {
             new ExpressionTestArgs(-36.0, 15.0, -6.0)
         );
     }
-
-    private static @NotNull Stream<ExpressionTestArgs>
-    illegalExpressionArgsProviderFactory() {
-        return Stream.of(
-            new ExpressionTestArgs(-36.0, -2.0, 6.0),
-            new ExpressionTestArgs(-49.0, 0.0, 7.0)
-        );
-    }
 }
-

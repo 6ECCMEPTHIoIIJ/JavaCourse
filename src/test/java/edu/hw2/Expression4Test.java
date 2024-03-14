@@ -4,19 +4,18 @@ import java.util.stream.Stream;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.TestOnly;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-final class Expression1Test extends ExpressionTest {
-    private final static double EXPRESSION_EDGE = 3.0;
+final class Expression4Test extends ExpressionTest {
+    private final static double EXPRESSION_EDGE = 2.0;
 
-    public Expression1Test() {
-        super(1);
+    public Expression4Test() {
+        super(4);
     }
 
     @ParameterizedTest
-    @DisplayName("Проверка значения выражения при x = 3")
+    @DisplayName("Проверка значения выражения при x = 2")
     @MethodSource("edgeExpressionArgsProviderFactory")
     public void checkEdge(@NotNull final ExpressionTestArgs args) {
         assertEquals(args);
@@ -40,16 +39,6 @@ final class Expression1Test extends ExpressionTest {
         ));
     }
 
-    @Test
-    @DisplayName("Проверка выражения при значениях x, "
-        + "при которых под логарифмом стоит 0")
-    public void zeroUnderLogarithmCheck() {
-        assertNotNull(assertThrows(
-            IllegalArgumentException.class,
-            () -> factory.createExpression(3.0, 6.0).evaluate(0.0)
-        ));
-    }
-
     @Override
     @TestOnly
     protected double evaluateExpression(
@@ -57,10 +46,9 @@ final class Expression1Test extends ExpressionTest {
         final double b,
         final double x
     ) {
-        final double xSqr = x * x;
         return x <= EXPRESSION_EDGE
-            ? b + 2.0 * Math.log(Math.abs(x))
-            : xSqr / (xSqr + a);
+            ? (a + x * x) / (b + Math.log(Math.abs(x) + 1))
+            : Math.exp(x) + x * x;
     }
 
     private static @NotNull Stream<ExpressionTestArgs>
@@ -86,9 +74,8 @@ final class Expression1Test extends ExpressionTest {
     private static @NotNull Stream<ExpressionTestArgs>
     illegalExpressionArgsProviderFactory() {
         return Stream.of(
-            new ExpressionTestArgs(-36.0, -2.0, 6.0),
-            new ExpressionTestArgs(-49.0, 0.0, 7.0)
+            new ExpressionTestArgs(4.0, -1.0, Math.E - 1),
+            new ExpressionTestArgs(2.0, 0.0, 0.0)
         );
     }
 }
-

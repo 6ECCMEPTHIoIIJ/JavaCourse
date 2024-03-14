@@ -5,10 +5,10 @@ package edu.hw2;
  */
 public interface Expression {
     /**
-     * Evaluate the expression for the given values.
+     * Evaluate the expression for the given value.
      *
-     * @param values values to evaluate the expression for
+     * @param value value to evaluate the expression for
      * @return the result of the evaluation
      */
-    double evaluate(double... values);
+    double evaluate(double value);
 }

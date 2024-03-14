@@ -278,8 +278,10 @@
         <!-- <module name="IllegalType"/> -->
         <module name="InnerAssignment"/>
         <module name="MagicNumber">
+            <property name="ignoreFieldDeclaration" value="true" />
             <property name="ignoreHashCodeMethod" value="true"/>
             <property name="ignoreAnnotation" value="true"/>
+            <property name="constantWaiverParentToken" value="ARRAY_INIT,EXPR"/>
             <message key="magic.number"
                      value="Most likely the value ''{0}'' is a configuration one. You should move it to configuration file instead of source code."/>
         </module>

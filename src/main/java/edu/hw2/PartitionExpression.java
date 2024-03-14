@@ -6,10 +6,10 @@ package edu.hw2;
 public interface PartitionExpression extends Expression {
     /**
      * Check the condition if part of expression
-     * can be evaluated for the given values.
+     * can be evaluated for the given value.
      *
-     * @param values the array of values to check the condition for
+     * @param value value to check the condition for
      * @return true if the condition is met, false otherwise
      */
-    boolean checkCondition(double... values);
+    boolean checkCondition(double value);
 }

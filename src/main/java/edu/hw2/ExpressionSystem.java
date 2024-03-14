@@ -19,18 +19,18 @@ public class ExpressionSystem implements Expression {
     }
 
     /**
-     * Evaluate the expression system for the given values.
+     * Evaluate the expression system for the given value.
      *
-     * @param values the array of values to evaluate the expression system for
+     * @param value value to evaluate the expression system for
      * @return the result of the evaluation
      * @throws NoValidExpressionConditionException if no system expression`s
      *                                             condition is valid
      */
     @Override
-    public double evaluate(final double... values) {
+    public double evaluate(final double value) {
         for (PartitionExpression expression : expressions) {
-            if (expression.checkCondition(values)) {
-                return expression.evaluate(values);
+            if (expression.checkCondition(value)) {
+                return expression.evaluate(value);
             }
         }
 

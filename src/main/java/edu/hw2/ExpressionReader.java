@@ -1,21 +1,25 @@
 package edu.hw2;
 
-import java.util.Scanner;
-
 public abstract class ExpressionReader {
 
     /**
      * The reader of expression parameters.
      */
     private final ParameterReader parameterReader = new ParameterReader();
+    /**
+     * The expression factory to use.
+     */
+    private final ExpressionFactory factory;
 
     /**
-     * Get the parameter reader.
+     * Create a new expression reader for expressions with two parameters.
      *
-     * @return the parameter reader
+     * @param expressionFactory the expression factory to use
      */
-    protected ParameterReader getParameterReader() {
-        return parameterReader;
+    public ExpressionReader(
+        final ExpressionFactory expressionFactory
+    ) {
+        factory = expressionFactory;
     }
 
     /**
@@ -23,5 +27,9 @@ public abstract class ExpressionReader {
      *
      * @return the expression
      */
-    public abstract Expression readExpression();
+    public Expression readExpression() {
+        final double a = parameterReader.readParameter("a");
+        final double b = parameterReader.readParameter("b");
+        return factory.createExpression(a, b);
+    }
 }

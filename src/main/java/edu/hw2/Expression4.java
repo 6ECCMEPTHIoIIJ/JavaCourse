@@ -1,32 +1,32 @@
 package edu.hw2;
 
 /**
- * Class that evaluates the first expression.
+ * Class that evaluates the fourth expression.
  */
-public final class Expression1 extends ExpressionSystem {
+public final class Expression4 extends ExpressionSystem {
 
     /**
      * The edge that separates two partition expression conditions.
      */
-    private static final double EXPRESSION_EDGE = 3.0;
+    private static final double EXPRESSION_EDGE = 2.0;
 
     /**
-     * Constructor for the first expression.
+     * Constructor for the fourth expression.
      *
      * @param a the value of the parameter a
      * @param b the value of the parameter b
      */
-    public Expression1(final double a, final double b) {
+    public Expression4(final double a, final double b) {
         super(
             new PartitionExpression() {
                 public double evaluate(final double value) {
-                    if (value == 0) {
-                        throw new IllegalArgumentException(
-                            "Value under the logarithm equal to 0.0"
-                        );
+                    final double denominator = b
+                        + Math.log(Math.abs(value) + 1);
+                    if (denominator == 0) {
+                        throw new DivisionByZeroException();
                     }
 
-                    return b + 2 * Math.log(Math.abs(value));
+                    return (a + value * value) / denominator;
                 }
 
                 public boolean checkCondition(final double value) {
@@ -35,13 +35,7 @@ public final class Expression1 extends ExpressionSystem {
             },
             new PartitionExpression() {
                 public double evaluate(final double value) {
-                    final double xSqr = value * value;
-                    final double denominator = xSqr + a;
-                    if (denominator == 0) {
-                        throw new DivisionByZeroException();
-                    }
-
-                    return xSqr / denominator;
+                    return Math.exp(value) + value * value;
                 }
 
                 public boolean checkCondition(final double value) {
@@ -50,6 +44,5 @@ public final class Expression1 extends ExpressionSystem {
             }
         );
     }
-
 }
 

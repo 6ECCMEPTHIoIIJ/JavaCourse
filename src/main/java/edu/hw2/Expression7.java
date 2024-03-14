@@ -1,26 +1,26 @@
 package edu.hw2;
 
 /**
- * Class that evaluates the second expression.
+ * Class that evaluates the seventh expression.
  */
-public final class Expression2 extends ExpressionSystem {
+public final class Expression7 extends ExpressionSystem {
 
     /**
      * The edge that separates two partition expression conditions.
      */
-    private static final double EXPRESSION_EDGE = 0.0;
+    private static final double EXPRESSION_EDGE = 3.0;
 
     /**
-     * Constructor for the second expression.
+     * Constructor for the seventh expression.
      *
      * @param a the value of the parameter a
      * @param b the value of the parameter b
      */
-    public Expression2(final double a, final double b) {
+    public Expression7(final double a, final double b) {
         super(
             new PartitionExpression() {
                 public double evaluate(final double value) {
-                    return a + Math.exp(-value) / 2.0;
+                    return (a + value) * Math.atan(value);
                 }
 
                 public boolean checkCondition(final double value) {
@@ -29,7 +29,7 @@ public final class Expression2 extends ExpressionSystem {
             },
             new PartitionExpression() {
                 public double evaluate(final double value) {
-                    return Math.cos(b * value + 1.0);
+                    return Math.pow(Math.cos(b + value * value), 2);
                 }
 
                 public boolean checkCondition(final double value) {
@@ -39,4 +39,3 @@ public final class Expression2 extends ExpressionSystem {
         );
     }
 }
-

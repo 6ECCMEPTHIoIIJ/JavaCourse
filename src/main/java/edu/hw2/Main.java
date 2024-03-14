@@ -27,8 +27,9 @@ public final class Main {
         ParameterReader argumentReader = new ParameterReader();
         System.out.printf(
             "Evaluation result: %f\n",
-            new TwoParametersExpressionReader(
-                new ExpressionFactory(Integer.parseInt(args[0])))
+            new ExpressionReader(
+                new ExpressionFactory(Integer.parseInt(args[0]))) {
+            }
                 .readExpression()
                 .evaluate(argumentReader.readParameter("x"))
         );

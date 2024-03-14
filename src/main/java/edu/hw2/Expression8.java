@@ -38,7 +38,7 @@ public final class Expression8 extends ExpressionSystem {
             },
             new PartitionExpression() {
                 public double evaluate(final double value) {
-                    if (value == b) {
+                    if (b - value == 0) {
                         throw new IllegalArgumentException(
                             "Value under the logarithm equal to 0.0"
                         );

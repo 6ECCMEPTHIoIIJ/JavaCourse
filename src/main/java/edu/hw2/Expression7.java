@@ -20,7 +20,7 @@ public final class Expression7 extends ExpressionSystem {
         super(
             new PartitionExpression() {
                 public double evaluate(final double value) {
-                    return (a + value) * Math.atan(value);
+                    return (a + value) * Math.atan(a * value);
                 }
 
                 public boolean checkCondition(final double value) {
@@ -29,7 +29,7 @@ public final class Expression7 extends ExpressionSystem {
             },
             new PartitionExpression() {
                 public double evaluate(final double value) {
-                    return Math.pow(Math.cos(b + value * value), 2);
+                    return Math.pow(Math.cos(b + value * value * value), 2);
                 }
 
                 public boolean checkCondition(final double value) {

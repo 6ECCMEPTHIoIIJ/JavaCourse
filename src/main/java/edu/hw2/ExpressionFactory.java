@@ -119,9 +119,13 @@ public class ExpressionFactory {
      * Create a new expression factory.
      *
      * @param expressionNumber the number of the expression to create
+     * @throws IllegalArgumentException if the expression number is invalid
      */
     public ExpressionFactory(final int expressionNumber) {
         expressionType = ExpressionType.fromInt(expressionNumber);
+        if (expressionType == null) {
+            throw new IllegalArgumentException("Invalid expression number");
+        }
     }
 
     /**
@@ -130,7 +134,6 @@ public class ExpressionFactory {
      * @param a the value of the parameter a
      * @param b the value of the parameter b
      * @return the created expression
-     * @throws IllegalArgumentException if the expression number is invalid
      */
     public Expression createExpression(final double a, final double b) {
         return switch (expressionType) {
@@ -143,9 +146,13 @@ public class ExpressionFactory {
             case EXPRESSION7 -> new Expression7(a, b);
             case EXPRESSION8 -> new Expression8(a, b);
             case EXPRESSION9 -> new Expression9(a, b);
-            default -> throw new IllegalArgumentException(
-                "Invalid expression number: " + expressionType
-            );
+            case EXPRESSION10 -> new Expression10(a, b);
+            case EXPRESSION11 -> new Expression11(a, b);
+            case EXPRESSION12 -> new Expression12(a, b);
+            case EXPRESSION13 -> new Expression13(a, b);
+            case EXPRESSION14 -> new Expression14(a, b);
+            case EXPRESSION15 -> new Expression15(a, b);
+            case EXPRESSION16 -> new Expression16(a, b);
         };
     }
 }

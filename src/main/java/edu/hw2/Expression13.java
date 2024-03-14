@@ -1,37 +1,31 @@
 package edu.hw2;
 
 /**
- * Class that evaluates the ninth expression.
+ * Class that evaluates the thirteenth expression.
  */
-public final class Expression9 extends ExpressionSystem {
-
-    /**
-     * Constant to suppress MagicNumber warning.
-     * It`s really a magic number :)
-     */
-    private static final double EXPRESSION_9_MAGIC_CONST = 3.0;
-
+public final class Expression13 extends ExpressionSystem {
     /**
      * The edge that separates two partition expression conditions.
      */
     private static final double EXPRESSION_EDGE = 2.0;
 
     /**
-     * Constructor for the ninth expression.
+     * Constructor for the thirteenth expression.
      *
      * @param a the value of the parameter a
      * @param b the value of the parameter b
      */
-    public Expression9(final double a, final double b) {
+    public Expression13(final double a, final double b) {
         super(new PartitionExpression() {
             public double evaluate(final double value) {
-                if (a < 0) {
+                final double xSqr = value * value;
+                if (a + xSqr <= 0) {
                     throw new IllegalArgumentException(
-                        "Value under the square root is below 0.0"
+                        "Value under the logarithm below or equal to 0.0"
                     );
                 }
 
-                return Math.sqrt(1.0 + value * Math.sqrt(a * value));
+                return Math.log(a + xSqr);
             }
 
             public boolean checkCondition(final double value) {
@@ -39,7 +33,7 @@ public final class Expression9 extends ExpressionSystem {
             }
         }, new PartitionExpression() {
             public double evaluate(final double value) {
-                return a * Math.sin(b * value) + EXPRESSION_9_MAGIC_CONST;
+                return Math.exp(Math.sin(value)) + 2.0 * b;
             }
 
             public boolean checkCondition(final double value) {
@@ -48,4 +42,3 @@ public final class Expression9 extends ExpressionSystem {
         });
     }
 }
-

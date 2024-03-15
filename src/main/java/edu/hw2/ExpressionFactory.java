@@ -1,6 +1,7 @@
 package edu.hw2;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExpressionFactory {
     /**
@@ -10,83 +11,78 @@ public class ExpressionFactory {
         /**
          * The first expression.
          */
-        EXPRESSION1(1),
+        EXPRESSION1,
         /**
          * The second expression.
          */
-        EXPRESSION2(2),
+        EXPRESSION2,
         /**
          * The third expression.
          */
-        EXPRESSION3(3),
+        EXPRESSION3,
         /**
          * The fourth expression.
          */
-        EXPRESSION4(4),
+        EXPRESSION4,
         /**
          * The fifth expression.
          */
-        EXPRESSION5(5),
+        EXPRESSION5,
         /**
          * The sixth expression.
          */
-        EXPRESSION6(6),
+        EXPRESSION6,
         /**
          * The seventh expression.
          */
-        EXPRESSION7(7),
+        EXPRESSION7,
         /**
          * The eighth expression.
          */
-        EXPRESSION8(8),
+        EXPRESSION8,
 
         /**
          * The ninth expression.
          */
-        EXPRESSION9(9),
+        EXPRESSION9,
         /**
          * The tenth expression.
          */
-        EXPRESSION10(10),
+        EXPRESSION10,
         /**
          * The eleventh expression.
          */
-        EXPRESSION11(11),
+        EXPRESSION11,
         /**
          * The twelfth expression.
          */
-        EXPRESSION12(12),
+        EXPRESSION12,
         /**
          * The thirteenth expression.
          */
-        EXPRESSION13(13),
+        EXPRESSION13,
         /**
          * The fourteenth expression.
          */
-        EXPRESSION14(14),
+        EXPRESSION14,
         /**
          * The fifteenth expression.
          */
-        EXPRESSION15(15),
+        EXPRESSION15,
         /**
          * The sixteenth expression.
          */
-        EXPRESSION16(16);
-
-        /**
-         * The number of the expression.
-         */
-        private final int expressionNumber;
+        EXPRESSION16;
 
         /**
          * The map of expression numbers to expression types.
          */
-        private static final HashMap<Integer, ExpressionType> MAP
-            = new HashMap<>();
+        private static final List<ExpressionType> MAP
+            = new ArrayList<>();
 
         static {
             for (ExpressionType enumConstant : ExpressionType.values()) {
-                MAP.put(enumConstant.expressionNumber, enumConstant);
+                MAP.addLast(enumConstant);
             }
         }
 
@@ -97,16 +93,7 @@ public class ExpressionFactory {
          * @return the expression type
          */
         public static ExpressionType fromInt(final int value) {
-            return MAP.get(value);
-        }
-
-        /**
-         * Create a new expression type.
-         *
-         * @param i the number of the expression
-         */
-        ExpressionType(final int i) {
-            expressionNumber = i;
+            return MAP.get(value - 1);
         }
     }
 

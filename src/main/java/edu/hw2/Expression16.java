@@ -28,7 +28,7 @@ public final class Expression16 extends ExpressionSystem {
             public double evaluate(final double value) {
                 final double logValue = value * value + 2.0 * value + b;
                 if (logValue <= 0) {
-                    throw new IllegalArgumentException(
+                    throw new ArithmeticException(
                         "Value under the logarithm below or equal to 0.0"
                     );
                 }

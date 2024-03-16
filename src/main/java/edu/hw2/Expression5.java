@@ -21,7 +21,7 @@ public final class Expression5 extends ExpressionSystem {
             new PartitionExpression() {
                 public double evaluate(final double value) {
                     if (value < 0) {
-                        throw new IllegalArgumentException(
+                        throw new ArithmeticException(
                             "Value under the square root is negative"
                         );
                     }

@@ -35,7 +35,7 @@ final class Expression13Test extends ExpressionTest {
     @MethodSource("illegalExpressionArgsProviderFactory")
     public void zeroUnderLogarithmCheck(@NotNull final ExpressionTestArgs args) {
         assertNotNull(assertThrows(
-            IllegalArgumentException.class,
+            ArithmeticException.class,
             () -> factory.createExpression(args.a(), args.b()).evaluate(args.x())
         ));
     }

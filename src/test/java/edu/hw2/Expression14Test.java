@@ -35,7 +35,7 @@ final class Expression14Test extends ExpressionTest {
         + "при которых под логарифмом стоит 0")
     public void zeroUnderLogarithmCheck() {
         assertNotNull(assertThrows(
-            IllegalArgumentException.class,
+            ArithmeticException.class,
             () -> factory.createExpression(3.0, 6.0).evaluate(-3.0)
         ));
     }

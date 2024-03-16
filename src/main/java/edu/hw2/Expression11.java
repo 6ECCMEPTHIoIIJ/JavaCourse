@@ -20,7 +20,7 @@ public final class Expression11 extends ExpressionSystem {
             public double evaluate(final double value) {
                 final double absSinX = Math.abs(Math.sin((value)));
                 if (a + absSinX < 0) {
-                    throw new IllegalArgumentException(
+                    throw new ArithmeticException(
                         "Negative value under the square root"
                     );
                 }

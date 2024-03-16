@@ -26,7 +26,7 @@ public final class Expression9 extends ExpressionSystem {
         super(new PartitionExpression() {
             public double evaluate(final double value) {
                 if (a < 0) {
-                    throw new IllegalArgumentException(
+                    throw new ArithmeticException(
                         "Value under the square root is below 0.0"
                     );
                 }

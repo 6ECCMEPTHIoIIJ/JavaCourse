@@ -35,7 +35,7 @@ final class Expression9Test extends ExpressionTest {
     @MethodSource("illegalExpressionArgsProviderFactory")
     public void divisionByZeroCheck(@NotNull final ExpressionTestArgs args) {
         assertNotNull(assertThrows(
-            IllegalArgumentException.class,
+            ArithmeticException.class,
             () -> factory.createExpression(args.a(), args.b()).evaluate(args.x())
         ));
     }

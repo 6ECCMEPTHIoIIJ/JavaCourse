@@ -39,7 +39,7 @@ public final class Expression14 extends ExpressionSystem {
         }, new PartitionExpression() {
             public double evaluate(final double value) {
                 if (value + EXPRESSION_14_MAGIC_CONST_2 == 0.0) {
-                    throw new IllegalArgumentException(
+                    throw new ArithmeticException(
                         "Value under the logarithm equal to 0.0"
                     );
                 }

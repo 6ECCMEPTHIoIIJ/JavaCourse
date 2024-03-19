@@ -88,12 +88,4 @@ public final class MathUtils {
 
         return sum;
     }
-
-    public static double cumulate(
-        int lower,
-        Function<SumEl, Double> f,
-        double x
-    ) {
-        return cumulate(lower, f, x, Double.MIN_VALUE);
-    }
 }

@@ -29,9 +29,5 @@ public abstract class SumExpr {
             : MathUtils.cumulate(lower, f, x, precision);
     }
 
-    public final double evaluate(double x) {
-        return evaluate(x, Double.MIN_VALUE);
-    }
-
     protected abstract boolean checkBounds(double x);
 }

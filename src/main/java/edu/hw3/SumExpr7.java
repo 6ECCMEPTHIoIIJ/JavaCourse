@@ -1,4 +1,4 @@
 package edu.hw3;
 
-public class SumExpr7 extends SumExpr1 {
+public final class SumExpr7 extends SumExpr1 {
 }

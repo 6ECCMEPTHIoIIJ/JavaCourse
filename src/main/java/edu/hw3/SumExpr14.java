@@ -1,7 +1,20 @@
 package edu.hw3;
 
-public class SumExpr14 extends SumExpr {
-    protected SumExpr14() {
+public final class SumExpr14 extends SumExpr {
+    /**
+     * The lower bound for the x value.
+     */
+    private static final double LOWER_X_BOUND = -1.0;
+
+    /**
+     * The upper bound for the x value.
+     */
+    private static final double UPPER_X_BOUND = 1.0;
+
+    /**
+     * The default constructor for SumExpr14.
+     */
+    public SumExpr14() {
         super(
             0,
             arg -> Math.pow(-1.0, arg.n())
@@ -12,7 +25,8 @@ public class SumExpr14 extends SumExpr {
     }
 
     @Override
-    protected boolean checkBounds(double x) {
-        return -1.0 <= x && x <= 1.0;
+    protected boolean checkBounds(final double x) {
+        return LOWER_X_BOUND <= x && x <= UPPER_X_BOUND;
     }
+
 }

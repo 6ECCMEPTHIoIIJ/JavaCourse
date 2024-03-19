@@ -1,18 +1,31 @@
 package edu.hw3;
 
-public class SumExpr5 extends SumExpr {
-    protected SumExpr5() {
+public final class SumExpr5 extends SumExpr {
+    /**
+     * The magic number const to suppress Magic Warning
+     * (Attribute @SuppressWarning doesn't help).
+     */
+    private static final double MAGIC_NUMBER = 4.0;
+    /**
+     * The upper bound for the n value.
+     */
+    private static final int UPPER_N_BOUND = 10;
+
+    /**
+     * The default constructor for SumExpr5.
+     */
+    public SumExpr5() {
         super(
-            0, 10,
+            0, UPPER_N_BOUND,
             arg -> Math.pow(2.0, arg.n() / 2.0)
-                * Math.sin(Math.PI * arg.n() / 4.0)
+                * Math.sin(Math.PI * arg.n() / MAGIC_NUMBER)
                 * Math.pow(arg.x(), arg.n())
                 / MathUtils.factorial(arg.n())
         );
     }
 
     @Override
-    protected boolean checkBounds(double x) {
+    protected boolean checkBounds(final double x) {
         return true;
     }
 }

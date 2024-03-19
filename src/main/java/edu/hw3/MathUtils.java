@@ -1,6 +1,7 @@
 package edu.hw3;
 
 import java.util.function.Function;
+import org.jetbrains.annotations.NotNull;
 
 public final class MathUtils {
     /**
@@ -15,7 +16,7 @@ public final class MathUtils {
      * @param n non-negative integer
      * @return n!
      */
-    public static double factorial(int n) {
+    public static double factorial(final int n) {
         if (n < 0) {
             throw new IllegalArgumentException("n must be non-negative.");
         }
@@ -33,7 +34,7 @@ public final class MathUtils {
      * @param n non-negative integer
      * @return n!!
      */
-    public static double doubleFactorial(int n) {
+    public static double doubleFactorial(final int n) {
         if (n < 0) {
             throw new IllegalArgumentException("n must be non-negative.");
         }
@@ -45,9 +46,18 @@ public final class MathUtils {
         return f;
     }
 
+    /**
+     * Compute the sum of a function over a range of integers.
+     *
+     * @param lower lower bound of the range
+     * @param upper upper bound of the range
+     * @param f     function to sum
+     * @return sum of f(n) for n in [lower, upper]
+     */
     public static double cumulate(
-        int lower, int upper,
-        Function<Integer, Double> f
+        final int lower,
+        final int upper,
+        final Function<@NotNull Integer, @NotNull Double> f
     ) {
         double sum = 0;
         for (int n = lower; n <= upper; n++) {
@@ -57,10 +67,20 @@ public final class MathUtils {
         return sum;
     }
 
+    /**
+     * Compute the sum of a function over a range of integers.
+     *
+     * @param lower lower bound of the range
+     * @param upper upper bound of the range
+     * @param f     function to sum
+     * @param x     parameter to pass to f
+     * @return sum of f(x, n) for n in [lower, upper]
+     */
     public static double cumulate(
-        int lower, int upper,
-        Function<SumEl, Double> f,
-        double x
+        final int lower,
+        final int upper,
+        final Function<@NotNull SumEl, @NotNull Double> f,
+        final double x
     ) {
         double sum = 0;
         for (int n = lower; n <= upper; n++) {
@@ -70,11 +90,21 @@ public final class MathUtils {
         return sum;
     }
 
+    /**
+     * Compute the sum of a function over a range of integers.
+     *
+     * @param lower     lower bound of the range
+     * @param f         function to sum
+     * @param x         parameter to pass to f
+     * @param precision limit precision
+     *                  of the range element value to calculate
+     * @return sum of f(x, n) for n in [lower, ∞)
+     */
     public static double cumulate(
-        int lower,
-        Function<SumEl, Double> f,
-        double x,
-        double precision
+        final int lower,
+        final Function<@NotNull SumEl, @NotNull Double> f,
+        final double x,
+        final double precision
     ) {
         double sum = 0;
         int n = lower;

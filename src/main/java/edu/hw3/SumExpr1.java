@@ -1,7 +1,10 @@
 package edu.hw3;
 
 public class SumExpr1 extends SumExpr {
-    protected SumExpr1() {
+    /**
+     * The default constructor for SumExpr1.
+     */
+    public SumExpr1() {
         super(
             1,
             arg -> Math.pow(-1.0, arg.n())
@@ -10,8 +13,11 @@ public class SumExpr1 extends SumExpr {
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected boolean checkBounds(double x) {
+    protected boolean checkBounds(final double x) {
         return true;
     }
 }

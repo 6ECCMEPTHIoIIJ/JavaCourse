@@ -13,6 +13,12 @@ public final class ArrayUtils {
         }
     }
 
+    public static <T> void smooth1(
+        final T @NotNull [] arr
+    ) {
+
+    }
+
     public static <T extends Comparable<T>> int minIndex(
         final T @NotNull [] arr,
         final @NotNull Comparator<T> comparator

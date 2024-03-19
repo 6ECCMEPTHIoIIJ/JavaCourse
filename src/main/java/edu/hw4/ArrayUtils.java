@@ -55,6 +55,12 @@ public final class ArrayUtils {
         return maxIndex;
     }
 
+    public static <T extends Comparable<T>> int maxIndex(
+        final T @NotNull [] arr
+    ) {
+        return maxIndex(arr, Comparator.naturalOrder());
+    }
+
     public static <T extends Comparable<T>> @NotNull MinMaxIndex minMaxIndex(
         final T @NotNull [] arr,
         final @NotNull Comparator<T> comparator
@@ -77,6 +83,12 @@ public final class ArrayUtils {
         return new MinMaxIndex(minIndex, maxIndex);
     }
 
+    public static <T extends Comparable<T>> @NotNull MinMaxIndex minMaxIndex(
+        final T @NotNull [] arr
+    ) {
+        return minMaxIndex(arr, Comparator.naturalOrder());
+    }
+
     public static <T extends Comparable<T>> Optional<T> min(
         final T @NotNull [] arr,
         final @NotNull Comparator<T> comparator
@@ -87,6 +99,12 @@ public final class ArrayUtils {
             : Optional.of(arr[minIndex]);
     }
 
+    public static <T extends Comparable<T>> Optional<T> min(
+        final T @NotNull [] arr
+    ) {
+        return min(arr, Comparator.naturalOrder());
+    }
+
     public static <T extends Comparable<T>> Optional<T> max(
         final T @NotNull [] arr,
         final @NotNull Comparator<T> comparator
@@ -95,6 +113,12 @@ public final class ArrayUtils {
         return maxIndex == -1
             ? Optional.empty()
             : Optional.of(arr[maxIndex]);
+    }
+
+    public static <T extends Comparable<T>> Optional<T> max(
+        final T @NotNull [] arr
+    ) {
+        return max(arr, Comparator.naturalOrder());
     }
 
     public static <T extends Comparable<T>> Optional<MinMax<T>> minMax(
@@ -108,6 +132,12 @@ public final class ArrayUtils {
             arr[minMaxIndex.minIndex()],
             arr[minMaxIndex.maxIndex()]
         ));
+    }
+
+    public static <T extends Comparable<T>> Optional<MinMax<T>> minMax(
+        final T @NotNull [] arr
+    ) {
+        return minMax(arr, Comparator.naturalOrder());
     }
 
     public static <T> void swap(
@@ -126,6 +156,12 @@ public final class ArrayUtils {
         ) {
             return minMax(arr, comparator);
         }
+
+        public static <T extends Comparable<T>> @NotNull Optional<MinMax<T>> find(
+            final T @NotNull [] arr
+        ) {
+            return minMax(arr);
+        }
     }
 
     public record MinMaxIndex(int minIndex, int maxIndex) {
@@ -138,6 +174,12 @@ public final class ArrayUtils {
             final @NotNull Comparator<T> comparator
         ) {
             return minMaxIndex(arr, comparator);
+        }
+
+        public static <T extends Comparable<T>> @NotNull MinMaxIndex find(
+            final T @NotNull [] arr
+        ) {
+            return minMaxIndex(arr);
         }
     }
 }

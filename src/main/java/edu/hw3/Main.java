@@ -9,12 +9,8 @@ public class Main {
         }
     }
 
-    private static void runExpr(SumExpr sum, double lower, double upper, int nSteps) {
-        runExpr(sum, lower, upper, nSteps, Double.MIN_VALUE);
-    }
-
     private static void runExpr(SumExpr sum, double lower, double upper) {
-        runExpr(sum, lower, upper, 10);
+        runExpr(sum, lower, upper, 10, Double.MIN_VALUE);
     }
 
     public static void main(final String[] args) {

@@ -1,11 +1,13 @@
 package edu.hw4;
 
 import java.util.Arrays;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * A slice of an array.
- * The slice is defined by the index of the first element and the index of the element after the last element.
+ * The slice is defined by the index of the first element
+ * and the index of the element after the last element.
  * The slice refers to the same array as the original array.
  *
  * @param <T> the type of elements in the slice
@@ -26,11 +28,13 @@ public final class ArraySlice<T> {
 
     /**
      * Constructs a new slice of the given array.
-     * The slice will contain the elements from the given begin index to the given end index.
+     * The slice will contain the elements from the given
+     * begin index to the given end index.
      *
      * @param newData  the array of elements
      * @param newBegin the index of the first element in the slice
-     * @param newEnd   the index of the element after the last element in the slice
+     * @param newEnd   the index of the element
+     *                 after the last element in the slice
      */
     public ArraySlice(
         final T @NotNull [] newData,
@@ -38,7 +42,8 @@ public final class ArraySlice<T> {
         final int newEnd
     ) {
         if (newBegin < 0 || newBegin > newEnd || newEnd > newData.length) {
-            throw new IllegalArgumentException("Invalid slice bounds: [" + newBegin + ", " + newEnd + ")");
+            throw new IllegalArgumentException(
+                "Invalid slice bounds: [" + newBegin + ", " + newEnd + ")");
         }
 
         this.data = newData;
@@ -48,10 +53,12 @@ public final class ArraySlice<T> {
 
     /**
      * Constructs a new slice of the given array.
-     * The slice will contain the elements from the beginning of the array to the given index.
+     * The slice will contain the elements from the beginning
+     * of the array to the given index.
      *
      * @param newData the array of elements
-     * @param newEnd  the index of the element after the last element in the slice
+     * @param newEnd  the index of the element after the last
+     *                element in the slice
      */
     public ArraySlice(
         final T @NotNull [] newData,
@@ -72,13 +79,18 @@ public final class ArraySlice<T> {
 
     /**
      * Constructs a new slice of the given array.
-     * The slice will contain the elements from the given begin index to the given end index.
+     * The slice will contain the elements from the given begin
+     * index to the given end index.
      *
      * @param newData  the array of elements
      * @param newBegin the index of the first element in the slice
-     * @param newEnd   the index of the element after the last element in the slice
+     * @param newEnd   the index of the element after the last
+     *                 element in the slice
+     * @param <T>      the type of elements in the slice
+     * @return the new slice
      */
-    public static <T> ArraySlice<T> ofRange(
+    @Contract(value = "_, _, _ -> new", pure = true) public static <T>
+    @NotNull ArraySlice<T> ofRange(
         final T @NotNull [] newData,
         final int newBegin,
         final int newEnd
@@ -88,12 +100,17 @@ public final class ArraySlice<T> {
 
     /**
      * Constructs a new slice of the given array.
-     * The slice will contain the elements from the beginning of the array to the given index.
+     * The slice will contain the elements from the beginning of
+     * the array to the given index.
      *
      * @param newData the array of elements
-     * @param newEnd  the index of the element after the last element in the slice
+     * @param newEnd  the index of the element after the last
+     *                element in the slice
+     * @param <T>     the type of elements in the slice
+     * @return the new slice
      */
-    public static <T> ArraySlice<T> ofTo(
+    @Contract(value = "_, _ -> new", pure = true) public static <T>
+    @NotNull ArraySlice<T> ofTo(
         final T @NotNull [] newData,
         final int newEnd
     ) {
@@ -102,12 +119,16 @@ public final class ArraySlice<T> {
 
     /**
      * Constructs a new slice of the given array.
-     * The slice will contain the elements from the given index to the end of the array.
+     * The slice will contain the elements from the given index
+     * to the end of the array.
      *
      * @param newData  the array of elements
      * @param newBegin the index of the first element in the slice
+     * @param <T>      the type of elements in the slice
+     * @return the new slice
      */
-    public static <T> ArraySlice<T> ofFrom(
+    @Contract(value = "_, _ -> new", pure = true) public static <T>
+    @NotNull ArraySlice<T> ofFrom(
         final T @NotNull [] newData,
         final int newBegin
     ) {
@@ -119,20 +140,28 @@ public final class ArraySlice<T> {
      * The slice will contain all the elements of the array.
      *
      * @param newData the array of elements
+     * @param <T>     the type of elements in the slice
+     * @return the new slice
      */
-    public static <T> ArraySlice<T> of(final T @NotNull [] newData) {
+    @Contract(value = "_ -> new", pure = true) public static <T>
+    @NotNull ArraySlice<T> of(final T @NotNull [] newData) {
         return new ArraySlice<>(newData);
     }
 
     /**
      * Constructs a new slice of the given slice.
-     * The slice will contain the elements from the given begin index to the given end index.
+     * The slice will contain the elements from the given begin
+     * index to the given end index.
      *
      * @param other    the slice to copy
      * @param newBegin the index of the first element in the slice
-     * @param newEnd   the index of the element after the last element in the slice
+     * @param newEnd   the index of the element after the last
+     *                 element in the slice
+     * @param <T>      the type of elements in the slice
+     * @return the new slice
      */
-    public static <T> ArraySlice<T> ofRange(
+    @Contract(value = "_, _, _ -> new", pure = true) public static <T>
+    @NotNull ArraySlice<T> ofRange(
         final @NotNull ArraySlice<T> other,
         final int newBegin,
         final int newEnd
@@ -142,13 +171,17 @@ public final class ArraySlice<T> {
 
     /**
      * Constructs a new slice of the given slice.
-     * The slice will contain the elements from the given index to the end of the slice.
+     * The slice will contain the elements from the given index
+     * to the end of the slice.
      * Data will refer to the same array as the given slice.
      *
      * @param other    the slice to refer
      * @param newBegin the index of the first element in the slice
+     * @param <T>      the type of elements in the slice
+     * @return the new slice
      */
-    public static <T> ArraySlice<T> ofFrom(
+    @Contract(value = "_, _ -> new", pure = true) public static <T>
+    @NotNull ArraySlice<T> ofFrom(
         final @NotNull ArraySlice<T> other,
         final int newBegin
     ) {
@@ -157,11 +190,15 @@ public final class ArraySlice<T> {
 
     /**
      * Constructs a new slice of the given slice.
-     * The slice will contain the elements from the beginning of the slice to the given index.
+     * The slice will contain the elements from the beginning
+     * of the slice to the given index.
      * Data will refer to the same array as the given slice.
      *
      * @param other  the slice to refer
-     * @param newEnd the index of the element after the last element in the slice
+     * @param newEnd the index of the element after the last
+     *               element in the slice
+     * @param <T>    the type of elements in the slice
+     * @return the new slice
      */
     public static <T> ArraySlice<T> ofTo(
         final @NotNull ArraySlice<T> other,
@@ -202,13 +239,14 @@ public final class ArraySlice<T> {
      *
      * @return the array of elements
      */
-    public final T[] getData() {
+    public T[] getData() {
         return data;
     }
 
     /**
      * Returns the element at the given index.
-     * If the index is less than 0 or greater than the current size of the slice,
+     * If the index is less than 0 or greater than the
+     * current size of the slice,
      * an {@link IndexOutOfBoundsException} exception will be thrown.
      *
      * @param index the index of the element to return
@@ -216,7 +254,8 @@ public final class ArraySlice<T> {
      */
     public T get(final int index) {
         if (index < 0 || index >= getSize()) {
-            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
+            throw new IndexOutOfBoundsException(
+                "Index out of bounds: " + index);
         }
 
         return data[begin + index];
@@ -224,7 +263,8 @@ public final class ArraySlice<T> {
 
     /**
      * Sets the element at the given index to the given value.
-     * If the index is less than 0 or greater than the current size of the slice,
+     * If the index is less than 0 or greater than
+     * the current size of the slice,
      * an {@link IndexOutOfBoundsException} exception will be thrown.
      *
      * @param index the index of the element to set
@@ -232,7 +272,8 @@ public final class ArraySlice<T> {
      */
     public void set(final int index, final T value) {
         if (index < 0 || index >= getSize()) {
-            throw new IndexOutOfBoundsException("Index out of bounds: " + index);
+            throw new IndexOutOfBoundsException(
+                "Index out of bounds: " + index);
         }
 
         data[begin + index] = value;
@@ -240,14 +281,16 @@ public final class ArraySlice<T> {
 
     /**
      * Sets the beginning index of the slice.
-     * If the new beginning index is less than 0 or greater than the current end index,
+     * If the new beginning index is less than 0 or
+     * greater than the current end index,
      * an {@link IllegalArgumentException} exception will be thrown.
      *
      * @param newBegin the new beginning index of the slice
      */
     public void setBegin(final int newBegin) {
         if (newBegin < 0 || newBegin > end) {
-            throw new IllegalArgumentException("New begin must be non-negative: " + newBegin);
+            throw new IllegalArgumentException(
+                "New begin must be non-negative: " + newBegin);
         }
 
         begin = newBegin;
@@ -264,7 +307,8 @@ public final class ArraySlice<T> {
      */
     public void setEnd(final int newEnd) {
         if (newEnd < begin) {
-            throw new IllegalArgumentException("New end must be non-negative: " + newEnd);
+            throw new IllegalArgumentException(
+                "New end must be non-negative: " + newEnd);
         }
 
         if (newEnd > data.length) {
@@ -276,21 +320,25 @@ public final class ArraySlice<T> {
 
     /**
      * Resizes the slice so that it contains the given number of elements.
-     * If the new size is less than the current size, the slice will be truncated.
-     * If the new size is greater than the current size, the slice will be extended with null elements.
+     * If the new size is less than the current size,
+     * the slice will be truncated.
+     * If the new size is greater than the current size,
+     * the slice will be extended with null elements.
      *
      * @param newSize the new size of the slice
      */
     public void resize(final int newSize) {
         if (newSize < 0) {
-            throw new IllegalArgumentException("New size must be non-negative: " + newSize);
+            throw new IllegalArgumentException(
+                "New size must be non-negative: " + newSize);
         }
 
         setEnd(begin + newSize);
     }
 
     /**
-     * Trims the slice so that it contains only the elements from the beginning index to the end index.
+     * Trims the slice so that it contains only the elements
+     * from the beginning index to the end index.
      */
     public void trim() {
         if (begin == 0 && end == data.length) {
@@ -304,11 +352,12 @@ public final class ArraySlice<T> {
 
     /**
      * Returns a string representation of the slice.
-     * The string representation consists of a list of the slice's elements, enclosed in square brackets ("[]").
+     * The string representation consists of a list of the
+     * slice's elements, enclosed in square brackets ("[]").
      *
      * @return a string representation of the slice
      */
-    public String toString() {
+    public @NotNull String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         for (int i = begin; i < end; i++) {

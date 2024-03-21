@@ -2,9 +2,19 @@ package edu.hw4;
 
 import java.util.Arrays;
 import java.util.Optional;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * This class contains utility methods for array slices.
+ */
 public final class ArrayUtils {
+    /**
+     * This class should not be instantiated.
+     */
+    private ArrayUtils() {
+    }
+
     /**
      * Finds the minimum index of an array slice.
      *
@@ -95,7 +105,8 @@ public final class ArrayUtils {
      * @param s   the array slice
      * @param <T> the type of the elements
      * @return the minimum and maximum indices of the array slice.
-     *     If the array slice is empty, the minimum and maximum indices are invalid.
+     *     If the array slice is empty, the minimum
+     *     and maximum indices are invalid.
      * @see MinMaxIndex
      */
     public static <T extends Comparable<T>> MinMaxIndex findMinMaxIndex(
@@ -128,7 +139,7 @@ public final class ArrayUtils {
      * @see MinMax
      */
     public static <T extends Comparable<T>> Optional<MinMax<T>> findMinMax(
-        @NotNull ArraySlice<T> s
+        final @NotNull ArraySlice<T> s
     ) {
         return MinMax.of(s, findMinMaxIndex(s));
     }
@@ -141,7 +152,7 @@ public final class ArrayUtils {
      * @param <T>   the type of the elements
      */
     public static <T extends Comparable<T>> void erase(
-        @NotNull ArraySlice<T> s,
+        final @NotNull ArraySlice<T> s,
         final T value
     ) {
         int shift = 0;
@@ -163,7 +174,7 @@ public final class ArrayUtils {
      * @param <T> the type of the elements
      */
     public static <T extends Comparable<T>> void eraseUnordered(
-        @NotNull ArraySlice<T> s
+        final @NotNull ArraySlice<T> s
     ) {
         int shift = 0;
         for (int i = 1; i < s.getSize(); i++) {
@@ -235,10 +246,14 @@ public final class ArrayUtils {
      * @param <T> the type of the elements
      */
     public static <T extends Comparable<T>> void selectionSort(
-        @NotNull ArraySlice<T> s
+        final @NotNull ArraySlice<T> s
     ) {
         for (int i = 0; i < s.getSize(); i++) {
-            swap(s, i, i + findMinIndex(ArraySlice.ofFrom(s, s.getBegin() + i)));
+            swap(
+                s,
+                i,
+                i + findMinIndex(ArraySlice.ofFrom(s, s.getBegin() + i))
+            );
         }
     }
 
@@ -249,7 +264,7 @@ public final class ArrayUtils {
      * @param <T> the type of the elements
      */
     public static <T extends Comparable<T>> void insertionSort(
-        @NotNull ArraySlice<T> s
+        final @NotNull ArraySlice<T> s
     ) {
         for (int i = 1; i < s.getSize(); i++) {
             int j = i;
@@ -267,7 +282,7 @@ public final class ArrayUtils {
      * @param <T> the type of the elements
      */
     public static <T extends Comparable<T>> void bubbleSort(
-        @NotNull ArraySlice<T> s
+        final @NotNull ArraySlice<T> s
     ) {
         for (int i = 0; i < s.getSize(); i++) {
             for (int j = 0; j < s.getSize() - i - 1; j++) {
@@ -285,7 +300,7 @@ public final class ArrayUtils {
      * @param <T> the type of the elements
      */
     public static <T extends Comparable<T>> void sort(
-        @NotNull ArraySlice<T> s
+        final @NotNull ArraySlice<T> s
     ) {
         Arrays.sort(s.getData(), s.getBegin(), s.getEnd());
     }
@@ -297,7 +312,7 @@ public final class ArrayUtils {
      * @param <T> the type of the elements
      */
     public static <T> void revert(
-        @NotNull ArraySlice<T> s
+        final @NotNull ArraySlice<T> s
     ) {
         for (int i = 0; i < s.getSize() / 2; i++) {
             swap(s, i, s.getSize() - i - 1);
@@ -313,7 +328,7 @@ public final class ArrayUtils {
      * @param <T> the type of the elements
      */
     public static <T> void swap(
-        @NotNull ArraySlice<T> s,
+        final @NotNull ArraySlice<T> s,
         final int i,
         final int j
     ) {
@@ -325,6 +340,8 @@ public final class ArrayUtils {
     /**
      * Represents a minimum and maximum value.
      *
+     * @param min the minimum value
+     * @param max the maximum value
      * @param <T> the type of the minimum and maximum value
      */
     public record MinMax<T>(@NotNull T min, @NotNull T max) {
@@ -335,10 +352,11 @@ public final class ArrayUtils {
          * @param minMaxIndex the minimum and maximum index
          * @param <T>         the type of the minimum and maximum value
          * @return the minimum and maximum value of the array slice.
-         *     If the minimum and maximum index is invalid, returns an empty optional.
+         *     If the minimum and maximum index is invalid,
+         *     returns an empty optional.
          */
         public static <T extends Comparable<T>> Optional<MinMax<T>> of(
-            @NotNull ArraySlice<T> s,
+            final @NotNull ArraySlice<T> s,
             final @NotNull MinMaxIndex minMaxIndex
         ) {
             return minMaxIndex.isInvalid()
@@ -352,6 +370,9 @@ public final class ArrayUtils {
 
     /**
      * Represents the minimum and maximum indices of an array slice.
+     *
+     * @param min the minimum index
+     * @param max the maximum index
      */
     public record MinMaxIndex(int min, int max) {
         /**
@@ -360,14 +381,15 @@ public final class ArrayUtils {
          *
          * @return an invalid minimum and maximum index
          */
-        public static MinMaxIndex invalid() {
+        @Contract(" -> new") public static @NotNull MinMaxIndex invalid() {
             return new MinMaxIndex(-1, -1);
         }
 
         /**
          * Returns whether the minimum and maximum indices are invalid.
          *
-         * @return true if the minimum and maximum indices are equal to -1, false otherwise
+         * @return true if the minimum and maximum indices are equal to -1,
+         * false otherwise
          */
         public boolean isInvalid() {
             return min == -1 && max == -1;
@@ -376,13 +398,18 @@ public final class ArrayUtils {
 
     /**
      * Returns a string representation of the slice.
-     * The string representation consists of a list of the slice's elements, enclosed in square brackets ("[]").
-     * The string representation also includes the elements before and after the slice that contains in the array.
+     * The string representation consists of a list of the slice's elements,
+     * enclosed in square brackets ("[]").
+     * The string representation also includes the elements before and after
+     * the slice that contains in the array.
      *
      * @param slice the slice
+     * @param <T>   the type of the elements
      * @return a string representation of the slice
      */
-    public static <T> @NotNull String toStringFull(final @NotNull ArraySlice<T> slice) {
+    public static <T> @NotNull String toStringFull(
+        final @NotNull ArraySlice<T> slice
+    ) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < slice.getEnd(); i++) {
             sb.append(slice.getData()[i]);
@@ -402,16 +429,22 @@ public final class ArrayUtils {
     /**
      * Compares two array slices lexicographically.
      * The slices array are compared from the beginning to the end of slice.
-     * The comparison is based on the values of the elements in the array slices.
-     * The first pair of elements that are not equal determines the result of the comparison.
-     * If all elements are equal, the shorter array slice is lexicographically less than the longer array slice.
+     * The comparison is based on the values of
+     * the elements in the array slices.
+     * The first pair of elements that are not equal
+     * determines the result of the comparison.
+     * If all elements are equal, the shorter array slice
+     * is lexicographically less than the longer array slice.
      *
      * @param a   the first array slice
      * @param b   the second array slice
      * @param <T> the type of the elements
-     * @return the value 0 if the first array slice is equal to the second array slice;
-     *     a value less than 0 if the first array slice is lexicographically less than the second array slice;
-     *     and a value greater than 0 if the first array slice is lexicographically greater than the second array slice.
+     * @return the value 0 if the first array slice is equal to
+     *     the second array slice;
+     *     a value less than 0 if the first array slice is
+     *     lexicographically less than the second array slice;
+     *     and a value greater than 0 if the first array slice is
+     *     lexicographically greater than the second array slice.
      */
     public static <T extends Comparable<T>> int compare(
         final @NotNull ArraySlice<T> a,

@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * A slice of an array.
  * The slice is defined by the index of the first element and the index of the element after the last element.
+ * The slice refers to the same array as the original array.
  *
  * @param <T> the type of elements in the slice
  */
@@ -317,30 +318,6 @@ public final class ArraySlice<T> {
             }
         }
         sb.append("]");
-
-        return sb.toString();
-    }
-
-    /**
-     * Returns a string representation of the slice.
-     * The string representation consists of a list of the slice's elements, enclosed in square brackets ("[]").
-     * The string representation also includes the elements before and after the slice that contains in the array.
-     *
-     * @return a string representation of the slice
-     */
-    public String toStringFull() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < begin; i++) {
-            sb.append(data[i]);
-            sb.append(", ");
-        }
-
-        sb.append(this);
-
-        for (int i = end; i < data.length; i++) {
-            sb.append(", ");
-            sb.append(data[i]);
-        }
 
         return sb.toString();
     }

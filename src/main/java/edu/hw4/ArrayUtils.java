@@ -124,7 +124,7 @@ public final class ArrayUtils {
      * @param s   the array slice
      * @param <T> the type of the elements
      * @return the minimum and maximum value of the array slice.
-     *    If the array slice is empty, returns an empty optional.
+     *     If the array slice is empty, returns an empty optional.
      * @see MinMax
      */
     public static <T extends Comparable<T>> Optional<MinMax<T>> findMinMax(
@@ -167,7 +167,7 @@ public final class ArrayUtils {
     ) {
         int shift = 0;
         for (int i = 1; i < s.getSize(); i++) {
-            if (s.get(i).compareTo(s.get(i - 1)) < 0) {
+            if (s.get(i).compareTo(s.get(i - shift - 1)) < 0) {
                 shift++;
             } else {
                 s.set(i - shift, s.get(i));
@@ -213,6 +213,10 @@ public final class ArrayUtils {
         final T value
     ) {
         int shift = count(s, value);
+        if (shift == 0) {
+            return;
+        }
+
         s.resize(s.getSize() + shift);
         boolean needDuplicate = false;
         for (int i = s.getSize() - 1; i >= 0; i--) {
@@ -368,6 +372,61 @@ public final class ArrayUtils {
         public boolean isInvalid() {
             return min == -1 && max == -1;
         }
+    }
+
+    /**
+     * Returns a string representation of the slice.
+     * The string representation consists of a list of the slice's elements, enclosed in square brackets ("[]").
+     * The string representation also includes the elements before and after the slice that contains in the array.
+     *
+     * @param slice the slice
+     * @return a string representation of the slice
+     */
+    public static <T> @NotNull String toStringFull(final @NotNull ArraySlice<T> slice) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < slice.getEnd(); i++) {
+            sb.append(slice.getData()[i]);
+            sb.append(", ");
+        }
+
+        sb.append(slice);
+
+        for (int i = slice.getEnd(); i < slice.getData().length; i++) {
+            sb.append(", ");
+            sb.append(slice.getData()[i]);
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     * Compares two array slices lexicographically.
+     * The slices array are compared from the beginning to the end of slice.
+     * The comparison is based on the values of the elements in the array slices.
+     * The first pair of elements that are not equal determines the result of the comparison.
+     * If all elements are equal, the shorter array slice is lexicographically less than the longer array slice.
+     *
+     * @param a   the first array slice
+     * @param b   the second array slice
+     * @param <T> the type of the elements
+     * @return the value 0 if the first array slice is equal to the second array slice;
+     *     a value less than 0 if the first array slice is lexicographically less than the second array slice;
+     *     and a value greater than 0 if the first array slice is lexicographically greater than the second array slice.
+     */
+    public static <T extends Comparable<T>> int compare(
+        final @NotNull ArraySlice<T> a,
+        final @NotNull ArraySlice<T> b
+    ) {
+        int i = 0;
+        while (i < a.getSize() && i < b.getSize()) {
+            int cmp = a.get(i).compareTo(b.get(i));
+            if (cmp != 0) {
+                return cmp;
+            }
+            i++;
+        }
+
+        return Integer.compare(a.getSize(), b.getSize());
     }
 }
 

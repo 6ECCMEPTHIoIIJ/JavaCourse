@@ -5,3 +5,4 @@ package edu.hw4;
  */
 public interface Smoother extends Ranged<Double, Double[]>{
 }
+

@@ -28,12 +28,12 @@ public class Sorted<T extends Comparable<T>>
     /**
      * Sort the elements in the range.
      * Order is determined by the Comparator.
-     * The original array is not modified.
+     * The original array is modified.
      *
      * @param a    the array to sort
      * @param from the start of the range
      * @param to   the end of the range
-     * @return the sorted elements in the range
+     * @return the original array with the elements in the range sorted
      */
     @Override
     public T[] inRange(final T[] a, final int from, final int to) {
@@ -42,11 +42,9 @@ public class Sorted<T extends Comparable<T>>
             throw new InvalidRangeException(from, to, a.length);
         }
 
-        // Copy the array
-        final T[] result = Arrays.copyOf(a, a.length);
         // Sort the elements in the range
-        Arrays.sort(result, from, to, cmp);
+        Arrays.sort(a, from, to, cmp);
 
-        return result;
+        return a;
     }
 }

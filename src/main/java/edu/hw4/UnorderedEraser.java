@@ -1,6 +1,6 @@
 package edu.hw4;
 
-import java.util.Arrays;
+import java.lang.reflect.Array;
 import java.util.Comparator;
 
 /**
@@ -45,18 +45,26 @@ public class UnorderedEraser<T extends Comparable<T>>
 
         // Count the number of unordered elements
         int shift = 0;
+        T max = a[from];
         for (int i = from + 1; i < to; i++) {
-            if (cmp.compare(a[i], a[i - 1 - shift]) < 0) {
+            if (cmp.compare(a[i], max) < 0) {
                 shift++;
+            } else {
+                max = a[i];
             }
         }
 
-        // Copy the array
-        // size of the array is reduced by the number of unordered elements
-        final T[] result = Arrays.copyOf(a, a.length - shift);
-        for (int i = from + 1, j = from + 1; j < to - shift; i++) {
+        // Allocate space for the new array with the unordered elements removed
+        @SuppressWarnings("unchecked") final T[] result =
+            (T[]) Array.newInstance(
+                a.getClass().getComponentType(),
+                a.length - shift
+            );
+        // Copy the elements before the range
+        System.arraycopy(a, 0, result, 0, from);
+        for (int i = from, j = from; i < to && j < to - shift; i++) {
             // Copy the element if it is ordered
-            if (cmp.compare(a[i], a[i - 1]) >= 0) {
+            if (i == from || cmp.compare(a[i], result[j - 1]) >= 0) {
                 result[j++] = a[i];
             }
         }

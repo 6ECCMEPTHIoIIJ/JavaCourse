@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Smoother3 implements Smoother {
     /**
      * Smooth the values in the range.
-     * The original array is not modified.
+     * The original array is modified.
      * The smoothing is done by averaging the values in the range.
      * The value at index i is replaced by the average of the values
      * at index i, i - 1 and i + 1.
@@ -18,7 +18,7 @@ public class Smoother3 implements Smoother {
      * @param a    the array to smooth
      * @param from the start of the range
      * @param to   the end of the range
-     * @return the array with the values in the range smoothed
+     * @return the original array with the values in the range smoothed
      */
     @Override
     public Double[] inRange(final Double[] a, final int from, final int to) {
@@ -27,25 +27,23 @@ public class Smoother3 implements Smoother {
             throw new InvalidRangeException(from, to, a.length);
         }
 
-        // Copy the array
-        final Double[] result = Arrays.copyOf(a, a.length);
         // Save the first value
-        double t = result[from];
+        double t = a[from];
         // The first value in the range is replaced by the average
         // of the first two values
-        result[from] = (result[from] + result[from + 1]) / 2.0;
+        a[from] = (a[from] + a[from + 1]) / 2.0;
         for (int i = from + 1; i < to - 1; i++) {
             // The value at index i is replaced by the average of the near values
-            double buf = (result[i + 1] + result[i] + t) / 3.0;
+            double buf = (a[i + 1] + a[i] + t) / 3.0;
             // Save the value at index i
-            t = result[i];
+            t = a[i];
             // Update the value at index i
-            result[i] = buf;
+            a[i] = buf;
         }
         // The last value in the range is replaced by the average
         // of the last two values
-        result[to - 1] = (result[to - 1] + t) / 2.0;
+        a[to - 1] = (a[to - 1] + t) / 2.0;
 
-        return result;
+        return a;
     }
 }

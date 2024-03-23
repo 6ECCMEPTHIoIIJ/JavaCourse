@@ -1,18 +1,18 @@
 package edu.hw4;
 
-import java.util.Arrays;
+import java.lang.reflect.Array;
 
 /**
  * A duplicator of elements.
  *
  * @param <T> the type of elements
  */
-public class Duplicator<T extends Comparable<T>>
+public class Duplicated<T extends Comparable<T>>
     implements Ranged<T, T[]> {
     /**
      * The Counter object used to count the target elements.
      */
-    private final Counter<T> counter;
+    private final Count<T> count;
     /**
      * The target element.
      */
@@ -23,8 +23,8 @@ public class Duplicator<T extends Comparable<T>>
      *
      * @param newTarget the target element
      */
-    public Duplicator(final T newTarget) {
-        counter = new Counter<>(newTarget);
+    public Duplicated(final T newTarget) {
+        count = new Count<>(newTarget);
         target = newTarget;
     }
 
@@ -49,10 +49,16 @@ public class Duplicator<T extends Comparable<T>>
         }
 
         // Count the number of target elements in the range
-        final int shift = counter.inRange(a, from, to);
-        // Copy the array with the new size
-        // increased by the number of duplicated elements
-        final T[] result = Arrays.copyOf(a, a.length + shift);
+        final int shift = count.inRange(a, from, to);
+        // Allocate space for the new array with the duplicated elements
+        @SuppressWarnings("unchecked") final T[] result =
+            (T[]) Array.newInstance(
+                a.getClass().getComponentType(),
+                a.length + shift
+            );
+
+        // Copy the elements before the range
+        System.arraycopy(a, 0, result, 0, from);
         // Duplicate the target elements in the range
         for (int i = from, j = from; i < to; i++) {
             // Copy the element
@@ -62,7 +68,7 @@ public class Duplicator<T extends Comparable<T>>
             }
         }
 
-        // Copy the remaining elements that are not in the range
+        // Copy the remaining elements after the range
         System.arraycopy(a, to, result, to + shift, a.length - to);
         return result;
     }
